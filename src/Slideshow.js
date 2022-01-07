@@ -3,14 +3,13 @@ import { useTransition, animated } from "@react-spring/web"
 import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md"
 import { IconContext } from "react-icons"
 
-export default function Slideshow() {
-  const images = [
-    <img style={image} src="https://images.unsplash.com/photo-1617869884925-f8f0a51b2374?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" />,
-    <img style={image} src="https://images.unsplash.com/photo-1534214526114-0ea4d47b04f2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"/>,
-    <img style={image} src="https://images.unsplash.com/photo-1573455494060-c5595004fb6c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"/>,
-  ]
+export default function Slideshow(props) {
   const [currentCard, setCurrentCard] = useState(1)
   const [goingForward, setGoingForward] = useState(true)
+
+  const images = props.imageUrls.map(imageUrl => <img src={imageUrl} style={image} />)
+
+  console.log(props.imageUrls)
 
   const transition = useTransition(currentCard, {
     from: { 
