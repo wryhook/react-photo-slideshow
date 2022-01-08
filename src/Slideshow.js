@@ -1,17 +1,19 @@
 import { useState } from "react"
 import { useTransition, animated } from "@react-spring/web"
+import styled from "styled-components"
 import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md"
 import { IconContext } from "react-icons"
 
 export default function Slideshow(props) {
-  const [currentCard, setCurrentCard] = useState(1)
+  const [currentImage, setCurrentImage] = useState(1)
   const [goingForward, setGoingForward] = useState(true)
 
-  const images = props.imageUrls.map(imageUrl => <img src={imageUrl} style={image} />)
+  // take imageUrl array, passed as prop, and convert to image components
+  const images = props.imageUrls.map(imageUrl => 
+    <img src={imageUrl} style={image} />
+  )
 
-  console.log(props.imageUrls)
-
-  const transition = useTransition(currentCard, {
+  const transition = useTransition(currentImage, {
     from: { 
       opacity: 0, 
       //transform: goingForward ? 'scale(0.9)' : 'scale(1.1)',
@@ -24,37 +26,70 @@ export default function Slideshow(props) {
     },
   })
   
-  function showNextCard() {
+  // helper function used in OnClick for navigating to previous image
+  function showNextImage() {
     setGoingForward(true)
     return (
-      setCurrentCard(prevCard => {
+      setCurrentImage(prevCard => {
         return prevCard === images.length - 1 ? 0 : prevCard + 1
       })
     )
   }
 
-  function showPrevCard() {
+  // helper function used in OnClick for navigating to previous image
+  function showPrevImage() {
     setGoingForward(false)
     return (
 
-      setCurrentCard(prevCard => {
+      setCurrentImage(prevCard => {
         return prevCard === 0 ? images.length - 1 : prevCard - 1
       })
     )
   }
 
+  // styled components
+  const Body = styled.div`
+    background: black;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    user-select: none;
+  `
+
+  const Side = styled.div`
+    flex: 1;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+  `
+
+  const LeftSide = styled(Side)`
+    justify-content: right;
+  `
+
+  const RightSide = styled(Side)`
+    justify-content: left;
+  `
+
+  const ImageContainer = styled.div`
+    display: flex;
+    flex: 7;
+    align-items: center;
+    justify-content: center;
+  `
+
   return (
-    <div style={body}>
-      <div style={leftSide}>
-        <div onClick={showPrevCard} style={{cursor: 'pointer'}}>
+    <Body>
+      <LeftSide>
+        <div onClick={showPrevImage} style={{cursor: 'pointer'}}>
           <IconContext.Provider value={{ color: '#d4d4d4', size: '4rem',}}>
             <div>
               <MdArrowBackIos />
             </div>
           </IconContext.Provider>
         </div>
-      </div>
-      <div style={container}>
+      </LeftSide>
+      <ImageContainer>
         <div style={{maxHeight:'100%'}}>
         {
           transition((style, item) => {
@@ -70,49 +105,18 @@ export default function Slideshow(props) {
           })
         }
         </div>
-      </div>
-      <div style={rightSide}>
-        <div onClick={showNextCard} style={{cursor: 'pointer'}}>
+      </ImageContainer>
+      <RightSide>
+        <div onClick={showNextImage} style={{cursor: 'pointer'}}>
           <IconContext.Provider value={{ color: '#d4d4d4', size: '4rem'}}>
             <div>
               <MdArrowForwardIos />
             </div>
           </IconContext.Provider>
         </div>
-      </div>
-    </div>
+      </RightSide>
+    </Body>
   )
-}
-
-const body = {
-  background: 'black',
-  display: 'flex',
-  height: '100vh',
-  width: '100vw',
-  userSlect: 'none',
-}
-
-const leftSide = {
-  flex: 1,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'right',
-  zIndex: 100,
-}
-
-const rightSide = {
-  flex: 1,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'left',
-  zIndex: 100,
-}
-
-const container = {
-  display: 'flex',
-  flex: 7,
-  alignItems: 'center',
-  justifyContent: 'center',
 }
 
 const image = {
