@@ -8,7 +8,7 @@ export default function Slideshow(props) {
   const [currentImage, setCurrentImage] = useState(1)
   const [goingForward, setGoingForward] = useState(true)
 
-  // take imageUrl array, passed as prop, and convert to image components
+  // take imageUrl array prop and convert to image components
   const images = props.imageUrls.map(imageUrl => 
     <img src={imageUrl} style={image} />
   )
@@ -26,7 +26,7 @@ export default function Slideshow(props) {
     },
   })
   
-  // helper function used in OnClick for navigating to previous image
+  // helper function used in OnClick() for navigating to previous image
   function showNextImage() {
     setGoingForward(true)
     return (
@@ -36,7 +36,7 @@ export default function Slideshow(props) {
     )
   }
 
-  // helper function used in OnClick for navigating to previous image
+  // helper function used in OnClick() for navigating to previous image
   function showPrevImage() {
     setGoingForward(false)
     return (
@@ -47,7 +47,7 @@ export default function Slideshow(props) {
     )
   }
 
-  // styled components
+  // *** styled components ***
   const Body = styled.div`
     background: black;
     display: flex;
@@ -77,6 +77,7 @@ export default function Slideshow(props) {
     align-items: center;
     justify-content: center;
   `
+  // *** styled components ***
 
   return (
     <Body>
