@@ -10,14 +10,14 @@ export default function Slideshow(props) {
 
   // take imageUrl array prop and convert to image components
   const images = props.imageUrls.map(imageUrl => 
-    <img src={imageUrl} style={image} />
+    <img src={imageUrl} style={styles.image} />
   )
 
   const transition = useTransition(currentImage, {
     from: { 
       opacity: 0, 
-      //transform: goingForward ? 'scale(0.9)' : 'scale(1.1)',
-      x: goingForward ? 200 : -200, 
+      transform: goingForward ? 'scale(0.9)' : 'scale(1.1)',
+      //x: goingForward ? 200 : -200, 
     },
     enter: {
       opacity: 1, 
@@ -47,6 +47,9 @@ export default function Slideshow(props) {
     )
   }
 
+  let leftArrow = <MdArrowBackIos />
+  let rightArrow = <MdArrowForwardIos />
+  
   // *** styled components ***
   const Body = styled.div`
     background: black;
@@ -71,24 +74,33 @@ export default function Slideshow(props) {
     justify-content: left;
   `
 
+  const Button = styled.div`
+    height: 60;
+    width: 60;
+    cursor: pointer;
+    color: white;
+    &:hover {
+      opacity: 0.8;
+    } 
+  `
+
   const ImageContainer = styled.div`
     display: flex;
     flex: 7;
     align-items: center;
     justify-content: center;
+    border-radius: 100px;
   `
   // *** styled components ***
 
   return (
     <Body>
       <LeftSide>
-        <div onClick={showPrevImage} style={{cursor: 'pointer'}}>
-          <IconContext.Provider value={{ color: '#d4d4d4', size: '4rem',}}>
-            <div>
-              <MdArrowBackIos />
-            </div>
+        <Button onClick={showPrevImage} >
+          <IconContext.Provider value={{size: '4rem'}}>
+            {leftArrow}
           </IconContext.Provider>
-        </div>
+        </Button>
       </LeftSide>
       <ImageContainer>
         <div style={{maxHeight:'100%'}}>
@@ -108,20 +120,25 @@ export default function Slideshow(props) {
         </div>
       </ImageContainer>
       <RightSide>
-        <div onClick={showNextImage} style={{cursor: 'pointer'}}>
-          <IconContext.Provider value={{ color: '#d4d4d4', size: '4rem'}}>
-            <div>
-              <MdArrowForwardIos />
-            </div>
+        <Button onClick={showNextImage}>
+          <IconContext.Provider value={{size: '4rem'}}>
+            {rightArrow}
           </IconContext.Provider>
-        </div>
+        </Button>
       </RightSide>
     </Body>
   )
 }
 
-const image = {
-  maxWidth: '100%', 
-  maxHeight:'80vh', 
-  userSelect: 'none',
-}
+
+const styles = {
+	image: {
+    maxWidth: '100%', 
+    maxHeight:'80vh', 
+    userSelect: 'none',
+  },
+  icon: {
+    height: 80,
+    width: 80,
+  }
+}	
