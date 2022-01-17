@@ -2,13 +2,13 @@ import { useState } from "react"
 import { useTransition, animated } from "@react-spring/web"
 import styled from "styled-components"
 import { useSwipeable } from "react-swipeable"
-import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md"
+import { VscChevronLeft, VscChevronRight } from "react-icons/vsc"
 import { IconContext } from "react-icons"
 
 export default function Slideshow(props) {
   let shouldRenderButtons = window.innerWidth > 600
   
-  const [currentImage, setCurrentImage] = useState(1)
+  const [currentImage, setCurrentImage] = useState(0)
   const [goingForward, setGoingForward] = useState(true)
 
   // take imageUrl array prop and convert to image components
@@ -48,8 +48,8 @@ export default function Slideshow(props) {
   function showNextImage() {
     setGoingForward(true)
     return (
-      setCurrentImage(prevCard => {
-        return prevCard === images.length - 1 ? 0 : prevCard + 1
+      setCurrentImage(prevCurrentImage => {
+        return prevCurrentImage === images.length - 1 ? 0 : prevCurrentImage + 1
       })
     )
   }
@@ -58,27 +58,44 @@ export default function Slideshow(props) {
   function showPrevImage() {
     setGoingForward(false)
     return (
-      setCurrentImage(prevCard => {
-        return prevCard === 0 ? images.length - 1 : prevCard - 1
+      setCurrentImage(prevCurrentImage => {
+        return prevCurrentImage === 0 ? images.length - 1 : prevCurrentImage - 1
       })
     )
   }
 
-  let leftArrow = <MdArrowBackIos />
-  let rightArrow = <MdArrowForwardIos />
+  let leftArrow = <VscChevronLeft />
+  let rightArrow = <VscChevronRight />
   
   // *** styled components ***
   const Body = styled.div`
     background: black;
     display: flex;
+    flex-direction: column;
     height: 100vh;
     width: 100vw;
     user-select: none;
   `
+  
+  const Header = styled.div`
+    color: white;
+    text-align: center;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  `
+    
+  const Carousel = styled.div`
+    display: flex;
+    user-select: none;
+    height: 80vh;
+  `
 
   const Side = styled.div`
-    flex: 1;
     display: flex;
+    flex: 1;
     align-items: center;
     z-index: 100;
   `
@@ -92,8 +109,6 @@ export default function Slideshow(props) {
   `
 
   const Button = styled.div`
-    height: 4rem;
-    width: 4rem;
     cursor: pointer;
     color: white;
     &:hover {
@@ -103,52 +118,59 @@ export default function Slideshow(props) {
 
   const ImageContainer = styled.div`
     display: flex;
+    flex-direction: column;
     flex: 7;
     align-items: center;
     justify-content: center;
     border-radius: 100px;
   `
+
   // *** styled components ***
 
   return (
     <Body>
-      {
-        shouldRenderButtons &&
-        <LeftSide>
-          <Button onClick={showPrevImage} >
-            <IconContext.Provider value={{size: '4rem'}}>
-              {leftArrow}
+      <Header>
+        {currentImage + 1} / {images.length}
+      </Header>
+      <Carousel>
+        {
+          shouldRenderButtons &&
+          <LeftSide>
+            <Button onClick={showPrevImage} >
+              <IconContext.Provider value={{size: '6rem'}}>
+                {leftArrow}
+              </IconContext.Provider>
+            </Button>
+          </LeftSide>
+        }
+        <ImageContainer {...handlers}>
+          <div style={{maxHeight:'100%'} }>
+          {
+            transition((style, item) => {
+              return (
+                images[item] 
+                &&
+                <animated.div style={style}>
+                  <div style={{maxHeight:'100%'}}>
+                    {images[item]}
+                  </div>
+                </animated.div>
+              )
+            })
+          }
+          </div>
+        </ImageContainer>
+        {
+          shouldRenderButtons && 
+          <RightSide>
+          <Button onClick={showNextImage}>
+            <IconContext.Provider value={{size: '6rem'}}>
+              {rightArrow}
             </IconContext.Provider>
           </Button>
-        </LeftSide>
-      }
-      <ImageContainer {...handlers}>
-        <div style={{maxHeight:'100%'} }>
-        {
-          transition((style, item) => {
-            return (
-              images[item] 
-              &&
-              <animated.div style={style}>
-                <div style={{maxHeight:'100%'}}>
-                  {images[item]}
-                </div>
-              </animated.div>
-            )
-          })
+        </RightSide>
         }
-        </div>
-      </ImageContainer>
-      {
-        shouldRenderButtons && 
-        <RightSide>
-        <Button onClick={showNextImage}>
-          <IconContext.Provider value={{size: '4rem'}}>
-            {rightArrow}
-          </IconContext.Provider>
-        </Button>
-      </RightSide>
-      }
+      </Carousel>
     </Body>
   )
 }
