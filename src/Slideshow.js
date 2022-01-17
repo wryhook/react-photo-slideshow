@@ -1,10 +1,13 @@
 import { useState } from "react"
 import { useTransition, animated } from "@react-spring/web"
 import styled from "styled-components"
+import { useSwipeable } from "react-swipeable"
 import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md"
 import { IconContext } from "react-icons"
 
 export default function Slideshow(props) {
+  let shouldRenderButtons = window.innerWidth > 600
+  
   const [currentImage, setCurrentImage] = useState(1)
   const [goingForward, setGoingForward] = useState(true)
 
@@ -13,6 +16,7 @@ export default function Slideshow(props) {
     <img src={imageUrl} style={styles.image} />
   )
 
+  // image transitions using the react-spring library
   const transition = useTransition(currentImage, {
     from: { 
       opacity: 0, 
@@ -24,6 +28,20 @@ export default function Slideshow(props) {
       transform: 'scale(1)',
       x: 0, 
     },
+  })
+
+  // swipe gesture detection using react-swipeable library
+  const swipeConfig = {
+    delta: 10,                            // min distance(px) before a swipe starts. *See Notes*
+    preventDefaultTouchmoveEvent: true,  // call e.preventDefault *See Details*
+    trackTouch: true,                     // track touch input
+    trackMouse: false,                    // track mouse input
+    rotationAngle: 0,                     // set a rotation angle
+  }
+  const handlers = useSwipeable({
+    onSwipedLeft: () => showNextImage(),
+    onSwipedRight: () => showPrevImage(),
+    ...swipeConfig
   })
   
   // helper function used in OnClick() for navigating to previous image
@@ -40,7 +58,6 @@ export default function Slideshow(props) {
   function showPrevImage() {
     setGoingForward(false)
     return (
-
       setCurrentImage(prevCard => {
         return prevCard === 0 ? images.length - 1 : prevCard - 1
       })
@@ -75,8 +92,8 @@ export default function Slideshow(props) {
   `
 
   const Button = styled.div`
-    height: 60;
-    width: 60;
+    height: 4rem;
+    width: 4rem;
     cursor: pointer;
     color: white;
     &:hover {
@@ -95,15 +112,18 @@ export default function Slideshow(props) {
 
   return (
     <Body>
-      <LeftSide>
-        <Button onClick={showPrevImage} >
-          <IconContext.Provider value={{size: '4rem'}}>
-            {leftArrow}
-          </IconContext.Provider>
-        </Button>
-      </LeftSide>
-      <ImageContainer>
-        <div style={{maxHeight:'100%'}}>
+      {
+        shouldRenderButtons &&
+        <LeftSide>
+          <Button onClick={showPrevImage} >
+            <IconContext.Provider value={{size: '4rem'}}>
+              {leftArrow}
+            </IconContext.Provider>
+          </Button>
+        </LeftSide>
+      }
+      <ImageContainer {...handlers}>
+        <div style={{maxHeight:'100%'} }>
         {
           transition((style, item) => {
             return (
@@ -119,13 +139,16 @@ export default function Slideshow(props) {
         }
         </div>
       </ImageContainer>
-      <RightSide>
+      {
+        shouldRenderButtons && 
+        <RightSide>
         <Button onClick={showNextImage}>
           <IconContext.Provider value={{size: '4rem'}}>
             {rightArrow}
           </IconContext.Provider>
         </Button>
       </RightSide>
+      }
     </Body>
   )
 }
@@ -136,6 +159,7 @@ const styles = {
     maxWidth: '100%', 
     maxHeight:'80vh', 
     userSelect: 'none',
+    zIndex: 1000,
   },
   icon: {
     height: 80,
