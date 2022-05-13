@@ -1,6 +1,6 @@
 {
   "name": "react-photo-slideshow",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "dependencies": {
     "@react-spring/web": "^9.4.1",
@@ -34,5 +34,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "peerDependencies": {
+    "react": "^17.0.2"
   }
 }
