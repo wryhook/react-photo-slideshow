@@ -70,8 +70,8 @@ export default function Slideshow(props) {
   
   // *** styled components ***
   const Body = styled.div`
-    color: white;
-    background: black;
+    color: ${props.darkMode ? "white" : "black"};
+    background: ${props.darkMode ? "black" : "white"};
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -115,9 +115,8 @@ export default function Slideshow(props) {
 
   const Button = styled.div`
     cursor: pointer;
-    color: white;
     &:hover {
-      opacity: 0.8;
+      opacity: 0.6;
     } 
   `
 
@@ -132,7 +131,7 @@ export default function Slideshow(props) {
 
   const CloseButton = styled.div`
     padding: 5px;
-    border: 1px solid white;
+    border: 1px solid ${props.darkMode ? "white" : "black"};
     border-radius: 10px;
     font-size: 1.25rem;
     display: flex;
@@ -143,7 +142,7 @@ export default function Slideshow(props) {
     cursor: pointer;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: ${props.darkMode ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.1)"};
     }
 
     @media (max-width: 768px) {

@@ -42,7 +42,7 @@ function App() {
       }
       {
         showSlideshow &&
-        <Slideshow imageUrls={imageUrls} handleClose={closeSlideshow} startIndex={4}/>
+        <Slideshow imageUrls={imageUrls} handleClose={closeSlideshow} startIndex={4} darkMode={true}/>
       }
     </div>
   );
