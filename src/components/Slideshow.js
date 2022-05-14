@@ -9,12 +9,13 @@ import { IconContext } from "react-icons"
 export default function Slideshow(props) {
   let shouldRenderButtons = window.innerWidth > 600
   
-  const [currentImage, setCurrentImage] = useState(props.startIndex - 1 || 0)
+  const [currentImage, setCurrentImage] = useState(props.startIndex || 0)
   const [goingForward, setGoingForward] = useState(true)
 
   // take imageUrl array prop and convert to image components
-  const images = props.imageUrls.map(imageUrl => 
-    <img src={imageUrl} style={styles.image} />
+  const images = props.imageUrls.map((imageUrl, index) => { 
+    return <img src={imageUrl} style={styles.image} key={index}/>
+  }
   )
 
   // image transitions using the react-spring library
@@ -77,6 +78,8 @@ export default function Slideshow(props) {
     height: 100vh;
     width: 100vw;
     position: absolute;
+    top: 0;
+    z-index: 1000;
     user-select: none;
   `
   
@@ -114,10 +117,18 @@ export default function Slideshow(props) {
   `
 
   const Button = styled.div`
+    border: 1px solid white;
+    border-radius: 10px;
+    aspect-ratio: 1 / 1;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+
     &:hover {
-      opacity: 0.6;
-    } 
+      background: ${props.darkMode ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.1)"};
+    }
   `
 
   const ImageContainer = styled.div`
@@ -178,7 +189,7 @@ export default function Slideshow(props) {
             shouldRenderButtons &&
             <LeftSide>
               <Button onClick={showPrevImage} >
-                <IconContext.Provider value={{size: '5rem'}}>
+                <IconContext.Provider value={{size: '3rem'}}>
                   {leftArrow}
                 </IconContext.Provider>
               </Button>
@@ -205,7 +216,7 @@ export default function Slideshow(props) {
             shouldRenderButtons && 
             <RightSide>
             <Button onClick={showNextImage}>
-              <IconContext.Provider value={{size: '5rem'}}>
+              <IconContext.Provider value={{size: '3rem'}}>
                 {rightArrow}
               </IconContext.Provider>
             </Button>
