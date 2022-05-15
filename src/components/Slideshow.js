@@ -117,7 +117,7 @@ export default function Slideshow(props) {
   `
 
   const Button = styled.div`
-    border: 1px solid white;
+    border: 1px solid ${props.darkMode ? 'white' : 'black'};
     border-radius: 10px;
     aspect-ratio: 1 / 1;
     padding: 0.25rem;
@@ -241,3 +241,7 @@ const styles = {
     width: 80,
   }
 }	
+
+Slideshow.defaultProps = {
+  darkMode: true
+}

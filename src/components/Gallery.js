@@ -2,7 +2,7 @@ import { useState } from "react"
 import Image from './Image'
 import Slideshow from './Slideshow';
 
-function Gallery({imageUrls}) {
+function Gallery({imageUrls, darkMode}) {
   const [showSlideshow, setShowSlideshow] = useState(false)
   const [startImage, setStartImage] = useState(1)
 
@@ -30,7 +30,7 @@ function Gallery({imageUrls}) {
       }
       {
         showSlideshow &&
-        <Slideshow imageUrls={imageUrls} handleClose={closeSlideshow} startIndex={startImage} darkMode={true}/>
+        <Slideshow imageUrls={imageUrls} handleClose={closeSlideshow} startIndex={startImage} darkMode={darkMode}/>
       }
     </div>
   );

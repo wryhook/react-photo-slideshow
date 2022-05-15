@@ -1,6 +1,9 @@
+import { useState, useEffect } from 'react'
+
+import ConfigPanel from './components/ConfigPanel';
 import Gallery from './components/Gallery'
 
-const imageUrls = [
+const defaultUrls = [
   "https://images.unsplash.com/photo-1617869884925-f8f0a51b2374?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
   "https://images.unsplash.com/photo-1534214526114-0ea4d47b04f2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
   "https://images.unsplash.com/photo-1573455494060-c5595004fb6c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
@@ -13,21 +16,13 @@ const imageUrls = [
 ]
 
 function App() {
-  
+  const [urls, setUrls] = useState(defaultUrls)
+  const [darkMode, setDarkmode] = useState(true)
+
   return (
     <div>
-      <div>THIS IS THE IMAGE GALLERY</div>
-      <div>THIS IS THE IMAGE GALLERY</div>
-      <div>THIS IS THE IMAGE GALLERY</div>
-      <div>THIS IS THE IMAGE GALLERY</div>
-      <div>THIS IS THE IMAGE GALLERY</div>
-      <div>THIS IS THE IMAGE GALLERY</div>
-      <div>THIS IS THE IMAGE GALLERY</div>
-      <div>THIS IS THE IMAGE GALLERY</div>
-      <div>THIS IS THE IMAGE GALLERY</div>
-      <div>THIS IS THE IMAGE GALLERY</div>
-      <div>THIS IS THE IMAGE GALLERY</div>
-      <Gallery imageUrls={imageUrls}/>
+      <ConfigPanel setUrls={setUrls} setDarkmode={setDarkmode}/>
+      <Gallery imageUrls={urls} darkMode={darkMode}/>
     </div>
   );
 }
