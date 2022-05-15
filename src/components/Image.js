@@ -6,7 +6,7 @@ export default function Image(props) {
         width: 30%;
         background-color: black;
         background-image: url(${props.imageUrl});
-        margin: 0.5rem;
+        margin: 0.25rem;
         background-size: cover;
         background-position: center;
         cursor: pointer;
