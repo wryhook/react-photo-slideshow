@@ -243,5 +243,6 @@ const styles = {
 }	
 
 Slideshow.defaultProps = {
-  darkMode: true
+  darkMode: true,
+  startIndex: 1
 }
