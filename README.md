@@ -66,3 +66,12 @@ function closeSlideshow() {
 ```
 
 In this example, you would also need a method to open the slideshow, for example, by clicking a button that sets `showSlideshow` to true.
+
+## Props
+
+### Gallery component
+
+| Prop        |   Type  | Default Value | Description                                                       |
+|-------------|:-------:|---------------|-------------------------------------------------------------------|
+| `imageUrls` | array   | undefined     | An array of strings containing the urls of images to be displayed |
+| `darkMode`  | boolean | true          | Sets whether the slideshow is in dark mode or light mode          |
