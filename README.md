@@ -72,15 +72,19 @@ In this example, you would also need a method to open the slideshow, for example
 ### Gallery component
 
 | Prop        |   Type  | Default Value | Description                                                       |
-|-------------|:-------:|---------------|-------------------------------------------------------------------|
+|-------------|:-------:|:---------------:|-------------------------------------------------------------------|
 | `imageUrls` | array   | undefined     | An array of strings containing the urls of images to be displayed |
 | `darkMode`  | boolean | true          | Sets whether the slideshow is in dark mode or light mode          |
 
 ### Slideshow component
 
 | Prop          |   Type   | Default Value | Description                                                       |
-|---------------|:--------:|---------------|-------------------------------------------------------------------|
+|---------------|:--------:|:---------------:|-------------------------------------------------------------------|
 | `imageUrls`   | array    | undefined     | An array of strings containing the urls of images to be displayed |
 | `darkMode`    | boolean  | true          | Sets whether the slideshow is in dark mode or light mode          |
 | `handleClose` | function | undefined     | Function that is called when close button on slideshow is clicked |
 | `startIndex` | integer | 1    | Integer defining which image to start slideshow at (1-based indexing) |
+
+## License
+
+MIT
