@@ -18,6 +18,7 @@ const Container = styled.div`
     /* border: 1px solid #4f4f4f; */
     display: flex;
     flex-direction: column;
+    user-select: none;
 
     @media (max-width: 768px) {
       margin-top: 0.5rem;;

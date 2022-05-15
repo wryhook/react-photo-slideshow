@@ -3,13 +3,13 @@ import styled from "styled-components"
 export default function Image(props) {
     const Container = styled.image`
         aspect-ratio: 4 / 3;
-        width: 30%;
+        width: 32%;
         background-color: black;
         background-image: url(${props.imageUrl});
-        margin: 0.25rem;
         background-size: cover;
         background-position: center;
         cursor: pointer;
+        margin: 0.25rem;
 
         &:hover {
             opacity: 0.9;
