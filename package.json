@@ -1,10 +1,12 @@
 {
+  "homepage": "https://wryhook.github.io/react-photo-slideshow",
   "name": "react-photo-slideshow",
   "version": "0.2.1",
   "private": false,
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "@react-spring/web": "^9.4.1",
+    "gh-pages": "^4.0.0",
     "netlify-cli": "^10.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -14,6 +16,8 @@
     "styled-components": "^5.3.3"
   },
   "scripts": {
+    "predeploy": "npm run  build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
