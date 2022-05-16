@@ -1,7 +1,7 @@
 {
   "homepage": "https://wryhook.github.io/react-photo-slideshow",
   "name": "react-photo-slideshow",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": false,
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
