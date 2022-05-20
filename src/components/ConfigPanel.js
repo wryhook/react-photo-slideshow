@@ -97,8 +97,11 @@ export default function ConfigPanel(props) {
     `
 
     function handleSubmit() {
-        props.setUrls(urlString.split(","))
+        if(urlString) {
+            props.setUrls(urlString.split(","))
+        }
         props.setDarkmode(darkMode)
+        setOpen(false)
     }
 
     return(

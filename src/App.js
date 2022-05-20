@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-import ConfigPanel from './components/ConfigPanel';
+import ConfigPanel from './components/ConfigPanel'
 import Gallery from './components/Gallery'
 
 const defaultUrls = [
