@@ -1,8 +1,13 @@
 {
   "homepage": "https://wryhook.github.io/react-photo-slideshow",
   "name": "react-photo-slideshow",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "private": false,
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ]
+  },
   "dependencies": {
     "@react-spring/web": "^9.4.1",
     "gh-pages": "^4.0.0",
@@ -19,7 +24,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "publish:npm": "rm -rf dist && mkdir dist &&  babel src/components -d dist --copy-files"
   },
   "eslintConfig": {
     "extends": [
@@ -38,5 +44,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/preset-react": "^7.17.12"
   }
 }
