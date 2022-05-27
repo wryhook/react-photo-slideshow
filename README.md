@@ -1,6 +1,6 @@
 # React Photo Slideshow
 
-Fast and responsive slideshow and gallery components for React
+Performant and responsive slideshow and gallery components for React
 
 ### [Live Demo](https://wryhook.github.io/react-photo-slideshow)
 
