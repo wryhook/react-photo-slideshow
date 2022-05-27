@@ -10,6 +10,7 @@ export default function Image(props) {
         background-position: center;
         cursor: pointer;
         margin: 0.25rem;
+        transition: opacity 0.15s;
 
         &:hover {
             opacity: 0.9;

@@ -79,10 +79,11 @@ export default function Slideshow(props) {
     justify-content: center;
     height: 100vh;
     width: 100vw;
-    top: 0;
     z-index: 1000;
     user-select: none;
     position: fixed;
+    left: 0;
+    top: 0;
     overflow: hidden;
   `
   
@@ -236,7 +237,7 @@ export default function Slideshow(props) {
           }
         </Carousel>
         <Footer>
-          Night view of Tokyo
+          
         </Footer>
       </Body>
     </div>

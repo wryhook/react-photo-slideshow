@@ -8,7 +8,7 @@ import '../index.css'
 function Gallery({imageUrls, darkMode}) {
   const [showSlideshow, setShowSlideshow] = useState(false)
   const [startImage, setStartImage] = useState(1)
-  const [animateSlideshow, setAnimateSlideshow] = useState(false)
+  const [animateSlideshow, setAnimateSlideshow] = useState(true)
 
   function openSlideshow(imageIdx) {
     setStartImage(imageIdx)
@@ -27,10 +27,10 @@ function Gallery({imageUrls, darkMode}) {
   const transition = useTransition(showSlideshow, {
     from: { 
       opacity: 0,
-      //x: goingForward ? 200 : -200, 
     },
     enter: {
       opacity: 1,
+      y: 0,
     },
     leave: {
       opacity: 0,
@@ -39,37 +39,19 @@ function Gallery({imageUrls, darkMode}) {
   
   return (
     <div>
-      
-        <div style={{display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center'}}>
-            {images}
-        </div>
-        {
-          animateSlideshow ?
-          <div>
-          {
-            transition((style, item) => {
-              return (
-                item 
-                ?
-                <animated.div style={style} className="slideshow">
-                  <Slideshow imageUrls={imageUrls} handleClose={closeSlideshow} startIndex={startImage} darkMode={darkMode}/>
-                </animated.div>
-                :
-                ''
-                
-              )
-            })
-          } 
-          </div>
-          :
-          <div>
-          {
-            showSlideshow &&
-            <Slideshow imageUrls={imageUrls} handleClose={closeSlideshow} startIndex={startImage} darkMode={darkMode}/>
-          }
-          </div>
-
-        }
+      <div style={{display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center'}}>
+          {images}
+      </div>
+      {
+        transition((style, item) => {
+          return (
+            item &&
+            <animated.div style={style} className="slideshow">
+              <Slideshow imageUrls={imageUrls} handleClose={closeSlideshow} startIndex={startImage} darkMode={darkMode}/>
+            </animated.div>        
+          )
+        })
+      }
     </div>
   );
 }
