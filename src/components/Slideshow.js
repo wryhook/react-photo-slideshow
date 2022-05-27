@@ -91,7 +91,7 @@ export default function Slideshow(props) {
     text-align: center;
     font-size: 1.25rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 15vh;
@@ -148,7 +148,7 @@ export default function Slideshow(props) {
     flex-direction: column;
     flex: 7;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     border-radius: 100px;
   `
 
@@ -159,19 +159,23 @@ export default function Slideshow(props) {
     font-size: 1.25rem;
     display: flex;
     justify-content: center;
-    position: absolute;
-    top: 3rem;
-    right: 4rem;
     z-index: 100;
     cursor: pointer;
+    margin-left: 3rem;
+    margin-right: 3rem;
 
     &:hover {
       background: ${props.darkMode ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.1)"};
     }
 
     @media (max-width: 768px) {
-      right: 1rem;
+      margin-left: 1rem;
+      margin-right: 1rem;
     }
+  `
+
+  const HiddenCloseButton = styled(CloseButton)`
+    visibility: hidden;
   `
 
   const ImageIndex = styled.div`
@@ -186,15 +190,20 @@ export default function Slideshow(props) {
   return (
     <div>
       <Body>
-        <CloseButton onClick={props.handleClose}>
-          <IconContext.Provider value={{size: '1.5rem'}}>
-            <IoCloseOutline />
-          </IconContext.Provider>
-        </CloseButton>
         <Header>
+          <HiddenCloseButton>
+            <IconContext.Provider value={{size: '1.5rem'}}>
+              <IoCloseOutline />
+            </IconContext.Provider>
+          </HiddenCloseButton>
           <ImageIndex>
             {currentImage + 1} / {images.length}
           </ImageIndex>
+          <CloseButton onClick={props.handleClose}>
+            <IconContext.Provider value={{size: '1.5rem'}}>
+              <IoCloseOutline />
+            </IconContext.Provider>
+          </CloseButton>
           
         </Header>
         <Carousel>
