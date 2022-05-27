@@ -7,7 +7,7 @@ import { IoCloseOutline } from "react-icons/io5"
 import { IconContext } from "react-icons"
 
 export default function Slideshow(props) {
-  let shouldRenderButtons = window.innerWidth > 600
+  const [inDesktopView, setInMobileView] = useState(window.innerWidth > 768)
   
   const [currentImage, setCurrentImage] = useState(props.startIndex || 0)
   const [goingForward, setGoingForward] = useState(true)
@@ -75,29 +75,40 @@ export default function Slideshow(props) {
     background: ${props.darkMode ? "black" : "white"};
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     height: 100vh;
     width: 100vw;
-    position: absolute;
     top: 0;
     z-index: 1000;
     user-select: none;
+    position: fixed;
+    overflow: hidden;
   `
   
   const Header = styled.div`
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
     width: 100%;
+    height: 15vh;
+    position: relative;
+    top: 0;
+  `
+
+  const Footer = styled(Header)`
+    max-width: 65ch;
+    padding-left: 1rem;
+    padding-right: 1rem;
   `
     
   const Carousel = styled.div`
     display: flex;
     user-select: none;
-    height: 80vh;
+    height: 70vh;
+    width: ${inDesktopView ? '90vw' : '100vw'};
   `
 
   const Side = styled.div`
@@ -108,12 +119,12 @@ export default function Slideshow(props) {
   `
 
   const LeftSide = styled(Side)`
-    justify-content: right;
+    justify-content: left;
 
   `
 
   const RightSide = styled(Side)`
-    justify-content: left;
+    justify-content: right;
   `
 
   const Button = styled.div`
@@ -148,8 +159,9 @@ export default function Slideshow(props) {
     display: flex;
     justify-content: center;
     position: absolute;
-    top: 1.5rem;
-    right: 3rem;
+    top: 3rem;
+    right: 4rem;
+    z-index: 100;
     cursor: pointer;
 
     &:hover {
@@ -174,7 +186,7 @@ export default function Slideshow(props) {
     <div>
       <Body>
         <CloseButton onClick={props.handleClose}>
-          <IconContext.Provider value={{size: '2rem'}}>
+          <IconContext.Provider value={{size: '1.5rem'}}>
             <IoCloseOutline />
           </IconContext.Provider>
         </CloseButton>
@@ -186,10 +198,10 @@ export default function Slideshow(props) {
         </Header>
         <Carousel>
           {
-            shouldRenderButtons &&
+            inDesktopView &&
             <LeftSide>
               <Button onClick={showPrevImage} >
-                <IconContext.Provider value={{size: '3rem'}}>
+                <IconContext.Provider value={{size: '2.5rem'}}>
                   {leftArrow}
                 </IconContext.Provider>
               </Button>
@@ -213,16 +225,19 @@ export default function Slideshow(props) {
             </div>
           </ImageContainer>
           {
-            shouldRenderButtons && 
+            inDesktopView && 
             <RightSide>
             <Button onClick={showNextImage}>
-              <IconContext.Provider value={{size: '3rem'}}>
+              <IconContext.Provider value={{size: '2.5rem'}}>
                 {rightArrow}
               </IconContext.Provider>
             </Button>
           </RightSide>
           }
         </Carousel>
+        <Footer>
+          Night view of Tokyo
+        </Footer>
       </Body>
     </div>
   )
@@ -231,8 +246,8 @@ export default function Slideshow(props) {
 
 const styles = {
 	image: {
-    maxWidth: '100%', 
-    maxHeight:'80vh', 
+    maxHeight: '70vh',
+    maxWidth: '100%',  
     userSelect: 'none',
     zIndex: 1000,
   },
