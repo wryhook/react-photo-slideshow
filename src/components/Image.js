@@ -10,19 +10,28 @@ export default function Image(props) {
         background-position: center;
         cursor: pointer;
         margin: 0.25rem;
-        transition: opacity 0.15s;
-
-        &:hover {
-            opacity: 0.9;
-        }
 
         @media (max-width: 768px) {
             width: 100%;
             margin: 0 0 0.5rem 0;
         }
 
-    `   
+    ` 
+    
+    const BlackBox = styled.div`
+        height: 100%;
+        width: 100%;
+        background: black;
+        opacity: 0;
+        transition: opacity 0.15s;
+
+        &:hover {
+            opacity: 0.25;
+        }
+    `
     return(
-        <Container onClick={() => props.openSlideshow(props.imageIdx)} />
+        <Container onClick={() => props.openSlideshow(props.imageIdx)}>
+            <BlackBox />
+        </Container>
     )
 }
